@@ -1,0 +1,27 @@
+:root {
+    /* Colors */
+    --color-primary: #1F9D55;
+    /* Approximate green from design */
+    --color-primary-dark: #167a41;
+    --color-text-main: #1A1A1A;
+    --color-text-sub: #555555;
+    --color-bg-light: #F9FAFB;
+    --color-bg-white: #FFFFFF;
+    --color-border: #E5E7EB;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    /* 8px */
+    --spacing-sm: 1rem;
+    /* 16px */
+    --spacing-md: 2rem;
+    /* 32px */
+    --spacing-lg: 4rem;
+    /* 64px */
+    --spacing-xl: 8rem;
+    /* 128px */
+
+    /* Layout */
+    --container-width: 1200px;
+    --header-height: 80px;
+}
