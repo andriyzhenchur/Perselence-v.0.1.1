@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { submitForm } from '../../utils/formSubmit.js';
+import { useEscapeKey } from '../../hooks/useEscapeKey.js';
+import { TIMINGS } from '../../constants/index.js';
 
 export default function JourneyModal({ isOpen, onClose }) {
   const [activeTab, setActiveTab] = useState('message'); // 'message' | 'meeting'
@@ -22,19 +25,13 @@ export default function JourneyModal({ isOpen, onClose }) {
         setIsVisible(false);
         setIsSuccess(false);
         document.body.style.overflow = 'unset';
-      }, 300); // match CSS transition duration
+      }, TIMINGS.MODAL_TRANSITION); // match CSS transition duration
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
   // Handle Escape key
-  useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape' && isOpen) onClose();
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, [isOpen, onClose]);
+  useEscapeKey(onClose, isOpen);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,24 +39,16 @@ export default function JourneyModal({ isOpen, onClose }) {
     
     const formData = new FormData(e.target);
 
-    try {
-      const response = await fetch("https://formspree.io/f/mlgnzdgz", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      
-      if (response.ok) {
-        setIsSuccess(true);
-        e.target.reset();
-      }
-    } catch (error) {
-      console.error("Form submission error", error);
-    } finally {
-      setIsSubmitting(false);
+    const success = await submitForm(formData);
+    
+    if (success) {
+      setIsSuccess(true);
+      e.target.reset();
+    } else {
+      console.error("Form submission failed");
     }
+    
+    setIsSubmitting(false);
   };
 
   if (!isVisible) return null;

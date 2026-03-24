@@ -12,18 +12,7 @@ const CaseStudyLayout = ({ label, title, context, whatWeDid, results, image }) =
                 <div className="content-text">
                     <div className="content-desc">
                         <div style={{ marginBottom: '2rem' }}>
-                            <span style={{
-                                display: 'inline-block',
-                                color: 'var(--color-primary)',
-                                fontWeight: '700',
-                                fontSize: '0.875rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                                padding: '0.25rem 0.75rem',
-                                borderRadius: '9999px',
-                                marginBottom: '1rem',
-                            }}>
+                            <span className="badge">
                                 {label}
                             </span>
                             <p>{context}</p>

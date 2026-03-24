@@ -1,8 +1,10 @@
+import { TIMINGS } from '../constants/index.js';
+
 export const smoothScrollTo = (e, targetId) => {
     e.preventDefault();
     const element = document.querySelector(targetId);
     if (element) {
-        const headerOffset = 90; // Header height + slight buffer
+        const headerOffset = TIMINGS.HEADER_HEIGHT; // Header height + slight buffer
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - headerOffset;
 

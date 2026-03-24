@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Button from '../ui/Button';
 import Container from '../ui/Container';
-
 import { smoothScrollTo } from '../../utils/scrollUtils';
+import { NAV_ITEMS, EXTERNAL_LINKS } from '../../constants/index.js';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,18 +23,16 @@ const Header = () => {
 
                 {/* Desktop Nav */}
                 <nav className="desktop-nav">
-                    <a href="#solutions" onClick={(e) => handleScroll(e, '#solutions')}>Services</a>
-                    <a href="#features" onClick={(e) => handleScroll(e, '#features')}>How it works</a>
-                    <a href="#engagements" onClick={(e) => handleScroll(e, '#engagements')}>Case Studies</a>
-                    <a href="#testimonials" onClick={(e) => handleScroll(e, '#testimonials')}>Testimonials</a>
-                    <a href="#about-us" onClick={(e) => handleScroll(e, '#about-us')}>About Us</a>
+                    {NAV_ITEMS.map((item) => (
+                        <a key={item.href} href={item.href} onClick={(e) => handleScroll(e, item.href)}>{item.label}</a>
+                    ))}
                     <a href="#contact" onClick={(e) => handleScroll(e, '#contact')}>Contact</a>
                 </nav>
 
                 <div className="nav-actions">
                     <Button
                         variant="primary"
-                        href="https://calendar.app.google/e2gg9wJrbADe7rPFA"
+                        href={EXTERNAL_LINKS.CALENDAR}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -54,16 +52,13 @@ const Header = () => {
             {/* Mobile Nav */}
             {isMenuOpen && (
                 <nav className="mobile-nav">
-                    <a href="#solutions" onClick={(e) => handleScroll(e, '#solutions')}>Services</a>
-                    <a href="#features" onClick={(e) => handleScroll(e, '#features')}>How it works</a>
-                    <a href="#engagements" onClick={(e) => handleScroll(e, '#engagements')}>Case Studies</a>
-                    <a href="#testimonials" onClick={(e) => handleScroll(e, '#testimonials')}>Testimonials</a>
-                    <a href="#about-us" onClick={(e) => handleScroll(e, '#about-us')}>About Us</a>
-                    <a href="#contact" onClick={(e) => handleScroll(e, '#contact')}>Contact</a>
+                    {NAV_ITEMS.map((item) => (
+                        <a key={item.href} href={item.href} onClick={(e) => handleScroll(e, item.href)}>{item.label}</a>
+                    ))}
                     <div className="mobile-actions">
                         <Button
                             variant="primary"
-                            href="https://calendar.app.google/e2gg9wJrbADe7rPFA"
+                            href={EXTERNAL_LINKS.CALENDAR}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setIsMenuOpen(false)}

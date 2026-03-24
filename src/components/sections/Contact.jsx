@@ -4,6 +4,8 @@ import Section from '../ui/Section';
 import Container from '../ui/Container';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
+import { submitForm } from '../../utils/formSubmit.js';
+import { EXTERNAL_LINKS } from '../../constants/index.js';
 
 const Contact = () => {
     const [submitting, setSubmitting] = React.useState(false);
@@ -15,27 +17,16 @@ const Contact = () => {
 
         const formData = new FormData(event.target);
 
-        try {
-            const response = await fetch("https://formspree.io/f/mlgnzdgz", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+        const success = await submitForm(formData);
 
-            if (response.ok) {
-                setSucceeded(true);
-                event.target.reset();
-            } else {
-                // Handle error if needed
-                console.error("Form submission failed");
-            }
-        } catch (error) {
-            console.error("Error submitting form:", error);
-        } finally {
-            setSubmitting(false);
+        if (success) {
+            setSucceeded(true);
+            event.target.reset();
+        } else {
+            console.error("Form submission failed");
         }
+
+        setSubmitting(false);
     };
 
     return (
@@ -85,7 +76,7 @@ const Contact = () => {
                             Skip the form - let's talk live.
                         </p>
                         <Button
-                            href="https://calendar.app.google/e2gg9wJrbADe7rPFA"
+                            href={EXTERNAL_LINKS.CALENDAR}
                             target="_blank"
                             rel="noopener noreferrer"
                             variant="primary"
